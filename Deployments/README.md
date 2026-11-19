@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Provides reusable orchestration for VM provisioning, OS preparation, and service installation.
+Composes reusable guest configuration sequences.
 
 ## Example contents
 
-A shared sequence that creates a VM, prepares Windows, and configures a server role.
+Run OS preparation followed by the required server roles or applications.
 
 ## Scope
 
-Lab-specific topology and configuration belong in `SysAdminDk` repositories. Shared service code belongs in `../BuildScripts/Services`.
+Customer and lab deployment orchestration owns VM creation and environment topology. This folder composes the guest-side build steps.
 
 ## Dependencies
 
-Calls the applicable code in `../Platforms/HyperV` or `../Proxmox` and uses build scripts from the same pinned revision.
+Uses ../Bootstrap and ../BuildScripts as appropriate, with configuration supplied by the deployment service.

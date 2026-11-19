@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Deploys reusable components of a Remote Desktop Services installation.
+Installs and configures Remote Desktop Services.
 
 ## Example contents
 
-RDS role installation and initial connection or collection configuration as required by the deployment.
+Connection Broker, database, Gateway, licensing, and related configuration in the existing RDS scripts.
 
 ## Scope
 
-The deployment supplies server names, certificates, and license servers. Monitoring and user administration belong with operations tools.
+Receives environment values from the deployment. Ongoing administration and assessment belong in InfraTools.
 
 ## Dependencies
 
-Requires provisioned Windows Server hosts and the domain, certificate, and licensing prerequisites of the selected RDS roles.
+The domain, database, certificates, and licensing prerequisites required by the selected RDS design.

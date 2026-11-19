@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Shows how to configure a build script or deployment.
+Shows how to supply configuration to this repository's scripts.
 
 ## Example contents
 
-Sample network, domain controller, or DHCP scope configuration using fictitious values.
+Sample machine definitions and settings with fictitious names and addresses.
 
 ## Scope
 
-Keep production values, lab addresses, and secrets in environment-specific configuration.
+Actual customer values and credentials are managed by the deployment.
 
 ## Dependencies
 
-Field formats and required values follow the applicable schema in `../Schemas`, where available, and the script parameters.
+Examples follow the consuming script parameters and applicable schemas in ../Schemas.

@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Tests reusable deployment code.
+Checks reusable guest build behavior.
 
 ## Example contents
 
-Pester tests for parameters, schemas, helper functions, and platform calls.
+Tests for bootstrap, configuration validation, role helpers, and rebuild behavior.
 
 ## Scope
 
-Lab-specific scenarios and acceptance tests stay with the lab repository.
+Platform provisioning tests follow the platform repositories. Customer scenario tests follow the deployment.
 
 ## Dependencies
 
-PowerShell tests can use Pester. Integration tests require the platforms and test environments specified by the test.
+PowerShell unit tests may use Pester. Integration tests require disposable guests and the services described by the test.

@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Authoritative source for shared PKI build scripts using Active Directory Certificate Services (AD CS).
+Provides supporting PKI deployment configuration around the CA builds in ../ADCA.
 
 ## Example contents
 
-Installation and baseline configuration of a root CA or issuing CA according to the chosen architecture.
+Recipes for certificate templates, enrollment configuration, and CRL or AIA publication settings.
 
 ## Scope
 
-Certificate monitoring and renewal belong in `InfraTools/PKI`. Manage private keys and credentials outside the repository.
+ADCA is the authoritative home for CA installation. Reuse those scripts when composing a PKI deployment. Ongoing operations belong in InfraTools/PKI.
 
 ## Dependencies
 
-Requires a provisioned Windows Server and CA parameters. An enterprise CA requires AD DS. A subordinate CA requires approval from its parent CA.
+Requires the relevant CA infrastructure and permissions. Specific settings depend on the PKI design.

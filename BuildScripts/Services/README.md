@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Provides reusable installation scripts for Windows Server roles. This is the authoritative source for AD DS, DHCP, and PKI builds.
+Provides the authoritative shared installation recipes for server roles.
 
 ## Example contents
 
-Role-specific scripts in `ADDS`, `DHCP`, `DNS`, `FileServices`, `PKI`, and `RDS`.
+AD DS in ADDS, DHCP in DHCP, CA installation in ADCA, and supporting PKI configuration in PKI.
 
 ## Scope
 
-Deployments supply environment settings and lab topology. Ongoing operations and remediation belong in `InfraTools`.
+Customer and lab deployments reuse these recipes with their own parameters. Role maintenance belongs in InfraTools.
 
 ## Dependencies
 
-Hyper-V and Proxmox deployments provision the VM, then invoke a pinned revision of the service script with environment-specific parameters.
+Runs after OS preparation. Each role defines its required modules, permissions, and installation order.

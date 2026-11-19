@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Explains the structure and use of the shared deployment code.
+Documents guest builds and the deployment web service interface.
 
 ## Example contents
 
-Installation order, script parameter references, and examples of reuse by lab deployments.
+Bootstrap flow, role prerequisites, configuration contracts, and rebuild procedures.
 
 ## Scope
 
-Operations guides belong in `InfraTools/Documentation`. Lab guides stay with the lab repository.
+Platform provisioning guides follow their platform repositories. Customer and lab runbooks follow their deployments.
 
 ## Dependencies
 
-Guides and examples apply to the script versions and platforms they cover.
+Documentation follows the relevant script and configuration versions.

@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Authoritative source for shared Active Directory Domain Services (AD DS) build scripts.
+Installs and configures Active Directory Domain Services.
 
 ## Example contents
 
-Installing the AD DS role, creating a forest, or promoting an additional domain controller.
+AD DS role installation, forest creation, and additional domain controllers.
 
 ## Scope
 
-AD assessment, hardening, and cleanup belong in `InfraTools/ActiveDirectory`. The environment supplies domain names and credentials at runtime.
+Receives environment values from the deployment. Ongoing administration and assessment belong in InfraTools.
 
 ## Dependencies
 
-Requires a provisioned Windows Server with suitable networking and DNS. Promotion in an existing domain requires access and the appropriate domain permissions.
+Suitable DNS and networking. Promotion requires the appropriate domain permissions.

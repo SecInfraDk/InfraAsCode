@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Installs and configures the operating system and server roles inside a provisioned VM.
+Provides reusable guest installation and configuration recipes.
 
 ## Example contents
 
-Windows baseline configuration in `OperatingSystem` and AD DS, DHCP, and PKI installation in `Services`.
+OperatingSystem preparation, Services role builds, and Applications installation.
 
 ## Scope
 
-VM provisioning belongs in `Platforms/HyperV` and `Proxmox`. Operations for existing roles belong in `InfraTools`.
+Virtual machine creation belongs in the platform repositories. Customer values are supplied as configuration.
 
 ## Dependencies
 
-Run after VM provisioning with the permissions, modules, and parameters required by the script.
+Runs inside a provisioned guest with the prerequisites and permissions of each recipe.

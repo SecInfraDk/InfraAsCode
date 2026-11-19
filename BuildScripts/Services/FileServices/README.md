@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Establishes a reusable baseline for Windows file services.
+Installs and configures Windows file services.
 
 ## Example contents
 
-File server role installation, SMB share creation, and initial share and NTFS permissions.
+File server role installation, SMB shares, and initial share and NTFS permissions.
 
 ## Scope
 
-One-off migrations and ongoing cleanup belong with operations tools. The environment supplies share names and groups.
+Receives environment values from the deployment. Ongoing administration and assessment belong in InfraTools.
 
 ## Dependencies
 
-Requires Windows Server, provisioned storage, and the relevant groups or accounts for access control.
+Windows Server, provisioned storage, and the groups or accounts used for access control.

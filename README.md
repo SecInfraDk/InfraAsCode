@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Reusable code for provisioning virtual machines and deploying infrastructure in production and lab environments.
+Builds operating systems, server roles, and applications inside provisioned machines.
 
 ## Example contents
 
-Hyper-V and Proxmox VM provisioning, service installation, configuration examples, and shared modules.
+Bootstrap, OS preparation, role installation, application installation, and guest deployment sequences.
 
 ## Scope
 
-Operations and hardening for existing environments belong in `InfraTools`. Lab topology, environment settings, and scenarios belong in `SysAdminDk` repositories.
+Hypervisor operations belong in HyperVAsCode, ProxmoxAsCode, or VMwareAsCode. Customer and lab deployments supply their own environment data.
 
 ## Dependencies
 
-[`BuildScripts/Services`](BuildScripts/Services/) is the authoritative source for shared AD DS, DHCP, and PKI build scripts. Lab deployments use a pinned revision and supply their own parameters.
+The deployment service supplies configuration and a pinned revision of this repository. Shared modules come from InfraModules when required.

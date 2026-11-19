@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Defines the configuration formats accepted by build scripts and deployments.
+Defines configuration contracts and sample inputs for this repository.
 
 ## Example contents
 
-Sample data in `Examples` and validation rules in `Schemas`.
+Examples contains fictitious inputs. Schemas contains machine-readable validation rules.
 
 ## Scope
 
-Keep actual environment settings and secrets with the corresponding deployment.
+Customer and lab configuration stays with the deployment. Existing script-specific paths remain applicable until the callers are updated.
 
 ## Dependencies
 
-Deployment and build scripts consume these files. Examples and schemas follow the version of the script that reads them.
+Field names and formats must match the consuming scripts and their selected revision.

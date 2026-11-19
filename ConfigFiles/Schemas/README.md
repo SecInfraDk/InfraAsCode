@@ -6,12 +6,12 @@ Describes and validates configuration formats.
 
 ## Example contents
 
-JSON schemas for required fields, allowed values, and data types in deployment or service configuration.
+JSON schemas for required fields, value types, and allowed settings.
 
 ## Scope
 
-Deployments supply actual values. Sample values belong in `../Examples`.
+Concrete example values belong in ../Examples. Actual values belong with the deployment.
 
 ## Dependencies
 
-Schemas follow the scripts that read the configuration. Automated validation requires a validator for the schema format.
+Requires a validator for the chosen schema format and scripts that consume the described fields.

@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Installs Windows DNS Server and applies its baseline configuration.
+Installs and configures Windows DNS Server.
 
 ## Example contents
 
-Role installation, zone creation, and forwarder configuration.
+DNS role installation, initial zones, and forwarders.
 
 ## Scope
 
-Troubleshooting, ongoing zone maintenance, and reporting belong in `InfraTools/DNS`.
+Receives environment values from the deployment. Ongoing administration and assessment belong in InfraTools.
 
 ## Dependencies
 
-Requires Windows Server and the desired zone and forwarder settings. AD-integrated zones require AD DS.
+Windows Server and zone parameters. AD-integrated zones require AD DS.

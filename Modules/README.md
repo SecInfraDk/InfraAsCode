@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Provides shared PowerShell functions for build and deployment scripts.
+Contains helper modules used exclusively by guest build and bootstrap code.
 
 ## Example contents
 
-Modules for logging, validation, network calculations, and Windows preparation.
+Build validation, guest setup helpers, and role installation utilities.
 
 ## Scope
 
-Role installation workflows belong in `../BuildScripts/Services`. Operations-specific code belongs in `InfraTools`.
+Modules with actual consumers across repositories belong in InfraModules. Role entry scripts belong in BuildScripts.
 
 ## Dependencies
 
-Scripts import the modules they need. Declare external PowerShell module dependencies alongside the code that uses them.
+Imported by the guest scripts that need them. Declare external dependencies in each module manifest.

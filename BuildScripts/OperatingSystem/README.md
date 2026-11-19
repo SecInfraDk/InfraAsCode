@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Prepares the operating system for server role installation.
+Prepares the guest operating system for role and application installation.
 
 ## Example contents
 
-Scripts for setting the computer name, configuring networking, and installing shared Windows prerequisites.
+Computer naming, networking, domain membership, and OS prerequisites.
 
 ## Scope
 
-Role-specific configuration belongs in `../Services`. Domain names and IP addresses come from the deployment.
+Role-specific installation belongs in ../Services. Environment values come from the deployment.
 
 ## Dependencies
 
-Requires an accessible operating system and administrative permissions for the changes the script makes.
+Requires a running guest OS and administrative access for system changes.
