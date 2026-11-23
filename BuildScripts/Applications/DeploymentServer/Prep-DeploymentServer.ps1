@@ -111,4 +111,11 @@ if (-NOT ($StaticContent.Collection.fileExtension.Contains(".ps1"))) {
 
 # GIT Download
 # ------------------------------------------------------------
+$Response = Invoke-WebRequest -Uri "https://api.github.com/SysAdminDK/repos?per_page=100" -UseBasicParsing
+$Response.Content
 
+
+$Organization = "SysAdminDk"
+$Uri = "https://api.github.com/$Organization/repos?per_page=100"
+
+$Repositories = Invoke-RestMethod -Uri $Uri -UseBasicParsing -ErrorAction Stop
