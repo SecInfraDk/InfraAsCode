@@ -1,17 +1,28 @@
 # InfraAsCode
 
-## Purpose
+> ⚠️ **Work In Progress — Under Active Development**
 
-Builds operating systems, server roles, and applications inside provisioned machines.
+This repository is currently being restructured and migrated from an existing internal deployment framework.
 
-## Example contents
+Scripts, modules, configuration files, and documentation are being added and updated incrementally.
 
-Bootstrap, OS preparation, role installation, application installation, and guest deployment sequences.
+**Current status:**
+- Existing functionality is being reviewed and migrated.
+- Scripts and modules may change without notice.
+- Documentation is incomplete.
+- The repository is not yet intended for production use by third parties.
 
-## Scope
+Once the migration and validation are complete, this notice will be removed.
 
-Hypervisor operations belong in HyperVAsCode, ProxmoxAsCode, or VMwareAsCode. Customer and lab deployments supply their own environment data.
+## Project
 
-## Dependencies
+PowerShell-based infrastructure automation for Microsoft Infrastructure, developed as part of the SecInfraDK infrastructure deployment framework.
 
-The deployment service supplies configuration and a pinned revision of this repository. Shared modules come from InfraModules when required.
+
+## License
+
+Copyright © 2026 SecInfraDK.
+
+This project is currently under development and has not yet been released under an open-source license.
+
+All rights reserved. A license may be added at a later stage.
