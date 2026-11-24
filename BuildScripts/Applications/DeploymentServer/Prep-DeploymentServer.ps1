@@ -15,15 +15,6 @@ if ($PSScriptRoot -and $PSScriptRoot -ne "") {
 }
 
 
-# Get the Required Scripts list
-# ------------------------------------------------------------
-if (-NOT (Test-Path -Path "$RootPath\DeploymentServerFiles.json")) {
-    throw "Required file DeploymentServerFiles.json is missing in $RootPath"
-} else {
-    $RequiredScripts = Get-Content -Path "$RootPath\DeploymentServerFiles.json" | Convertfrom-Json
-}
-
-
 # Virtual Directory Name
 # ------------------------------------------------------------
 $WebLocation  = "Deployment"
@@ -32,16 +23,6 @@ $WebLocation  = "Deployment"
 # Required for unsigned scripts & modules.
 # ------------------------------------------------------------
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Confirm:$false
-
-
-# Prepare Folders
-# ------------------------------------------------------------
-if (-NOT (Test-Path -Path "$RootPath\Functions")) {
-    New-Item -Path "$RootPath\Functions" -ItemType Directory | Out-Null
-}
-if (-NOT (Test-Path -Path "$RootPath\GIT-Cache")) {
-    New-Item -Path "$RootPath\GIT-Cache" -ItemType Directory | Out-Null
-}
 
 
 # Install IIS Service
@@ -109,16 +90,26 @@ if (-NOT ($StaticContent.Collection.fileExtension.Contains(".ps1"))) {
 }
 
 
-# Ask for platform choice.
+# Select platform.
 # ------------------------------------------------------------
-$Platforms = @(
-    [PSCustomObject]@{ Platform = "Microsoft Hyper-V Cluster";  Repo = "HyperVAsCode"; }
-    [PSCustomObject]@{ Platform = "Azure Local"; Repo = "AzLAsCode"; }
-    [PSCustomObject]@{ Platform = "Proxmox PVE Cluster"; Repo = "ProxmoxAsCode"; }
-    [PSCustomObject]@{ Platform = "VMware VCenter"; Repo = "VMwareAsCode"; }
-)
-$Platform = $Platforms | Select-Object Platform | Out-GridView -Title "Select platform" -OutputMode Single
-$SelectedGitRepo = $Platforms | Where {$_.Platform -eq $Platform.Platform}
+$ComputerSystem = Get-CimInstance -ClassName Win32_ComputerSystem
+switch ($ComputerSystem.Manufacturer) {
+    "QEMU" {
+        $Platform = "ProxmoxAsCode"
+    }
+    "Microsoft Corporation" {
+        if ($ComputerSystem.Model -eq "Virtual Machine") {
+            $Platform = "HyperVAsCode"
+        }
+    }
+    "VMware, Inc." {
+        $Platform = "VMwareAsCode"
+    }
+}
+
+if (-not $Platform) {
+    throw "Unsupported virtualization platform: $($ComputerSystem.Manufacturer) / $($ComputerSystem.Model)"
+}
 
 
 # List all GIT Repos
@@ -130,7 +121,7 @@ $Repositories = Invoke-RestMethod -Uri $Uri -UseBasicParsing -ErrorAction Stop
 # Select Required Repos
 # ------------------------------------------------------------
 $RequiredRepos = @("InfraAsCode","InfraTools","InfraModules")
-$RequiredRepos += $SelectedGitRepo.Repo
+$RequiredRepos += $Platform
 
 
 # Download and Extract Repo files
@@ -151,4 +142,5 @@ $Repositories | Where {$_.name -in $RequiredRepos} | ForEach-Object {
     Get-ChildItem -LiteralPath $ExtractedRoot.FullName -Force | Move-Item -Destination $RepoPath -Force
     Remove-Item -LiteralPath $ExtractedRoot.FullName -Recurse -Force
 
+    Remove-Item -Path $ZipPath
 }
