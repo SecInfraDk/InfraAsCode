@@ -137,7 +137,7 @@ $RequiredRepos += $SelectedGitRepo.Repo
 # ------------------------------------------------------------
 $Repositories | Where {$_.name -in $RequiredRepos} | ForEach-Object {
 
-    $RepoPath = "C:\Scripts\$($_.Name)"
+    $RepoPath = "$RootPath\$($_.Name)"
     $ZipPath  = "$RepoPath.zip"    
 
     # Download
