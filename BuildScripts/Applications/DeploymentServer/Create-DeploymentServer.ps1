@@ -213,3 +213,9 @@ Start-VM -Name $VMName
 # Connect to Console.
 # ------------------------------------------------------------
 & vmconnect.exe localhost $VMName
+
+
+# Get VM IP if needed for RDP
+# ------------------------------------------------------------
+Start-Sleep -Seconds 120
+(Get-VM -Name $VMName).NetworkAdapters.IPAddresses
