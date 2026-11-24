@@ -109,13 +109,46 @@ if (-NOT ($StaticContent.Collection.fileExtension.Contains(".ps1"))) {
 }
 
 
-# GIT Download
+# Ask for platform choice.
 # ------------------------------------------------------------
-$Response = Invoke-WebRequest -Uri "https://api.github.com/SysAdminDK/repos?per_page=100" -UseBasicParsing
-$Response.Content
+$Platforms = @(
+    [PSCustomObject]@{ Platform = "Microsoft Hyper-V Cluster";  Repo = "HyperVAsCode"; }
+    [PSCustomObject]@{ Platform = "Azure Local"; Repo = "AzLAsCode"; }
+    [PSCustomObject]@{ Platform = "Proxmox PVE Cluster"; Repo = "ProxmoxAsCode"; }
+    [PSCustomObject]@{ Platform = "VMware VCenter"; Repo = "VMwareAsCode"; }
+)
+$Platform = $Platforms | Select-Object Platform | Out-GridView -Title "Select platform" -OutputMode Single
+$SelectedGitRepo = $Platforms | Where {$_.Platform -eq $Platform.Platform}
 
 
-$Organization = "SysAdminDk"
-$Uri = "https://api.github.com/$Organization/repos?per_page=100"
-
+# List all GIT Repos
+# ------------------------------------------------------------
+$Uri = "https://api.github.com/orgs/SecInfraDk/repos?per_page=100"
 $Repositories = Invoke-RestMethod -Uri $Uri -UseBasicParsing -ErrorAction Stop
+
+
+# Select Required Repos
+# ------------------------------------------------------------
+$RequiredRepos = @("InfraAsCode","InfraTools","InfraModules")
+$RequiredRepos += $SelectedGitRepo.Repo
+
+
+# Download and Extract Repo files
+# ------------------------------------------------------------
+$Repositories | Where {$_.name -in $RequiredRepos} | ForEach-Object {
+
+    $RepoPath = "C:\Scripts\$($_.Name)"
+    $ZipPath  = "$RepoPath.zip"    
+
+    # Download
+    Invoke-RestMethod -Uri "$($_.html_url)/zipball/$($_.Default_Branch)" -UseBasicParsing -OutFile $ZipPath
+
+    # Expand
+    Expand-Archive -Path $ZipPath -DestinationPath $RepoPath -Force
+
+    # Cleanup
+    $ExtractedRoot = Get-ChildItem -Path $RepoPath -Directory | Select-Object -First 1
+    Get-ChildItem -LiteralPath $ExtractedRoot.FullName -Force | Move-Item -Destination $RepoPath -Force
+    Remove-Item -LiteralPath $ExtractedRoot.FullName -Recurse -Force
+
+}
