@@ -138,8 +138,8 @@ $Repositories | Where {$_.name -in $RequiredRepos} | ForEach-Object {
     Expand-Archive -Path $ZipPath -DestinationPath $RepoPath -Force
 
     # Cleanup
-    $ExtractedRoot = Get-ChildItem -Path $RepoPath -Directory | Select-Object -First 1
-    Get-ChildItem -LiteralPath $ExtractedRoot.FullName -Force | Move-Item -Destination $RepoPath -Force
+    $ExtractedRoot = Get-ChildItem -Path $RepoPath -Filter "*$($_.Name)*" -Directory | Select-Object -First 1
+    Get-ChildItem -LiteralPath $ExtractedRoot.FullName -Force | Copy-Item -Destination $RepoPath -Force
     Remove-Item -LiteralPath $ExtractedRoot.FullName -Recurse -Force
 
     Remove-Item -Path $ZipPath

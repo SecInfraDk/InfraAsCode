@@ -26,14 +26,15 @@ if ([string]::IsNullOrWhiteSpace($PhysicalPath) -or (-not (Test-Path -Path $Phys
 
 $JSONRoot = Join-Path -Path $PhysicalPath -ChildPath "\Deployment\ConfigFiles"
 if (-NOT (Test-Path -Path "$JSONRoot\JSON")) {
-    throw "JSON Path not found"
-    Start-Sleep -Seconds 9999
+    New-Item -Path "$JSONRoot\JSON" -ItemType Directory -Force
 }
 
 
-# Import the functions.
+
+# Import Shared modules
 # ------------------------------------------------------------
-Import-Module -Name "$RootPath\Functions\IP2Mac.ps1"
+Get-ChildItem -Path "C:\scripts" -Recurse -Filter "*.psm1*" | ForEach-Object { Import-Module -Name $_.FullName -Force }
+
 
 
 # Import master config

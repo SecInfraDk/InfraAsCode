@@ -5,11 +5,7 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -Confirm:$fals
 
 # Path to PVE scripts and Functions.
 # ------------------------------------------------------------
-if ($PSScriptRoot -and $PSScriptRoot -ne "") {
-    $RootPath = Split-Path -Path $PSScriptRoot -Parent
-} else {
-    $RootPath  = "C:\Scripts"
-}
+$RootPath  = "C:\Scripts"
 
 
 # JSON directory Path
@@ -30,34 +26,20 @@ if (-NOT (Test-Path -Path "$JSONRoot\JSON")) {
 }
 
 
-# Import the functions.
+# Import Shared modules
 # ------------------------------------------------------------
-Import-Module -Name "$RootPath\Functions\IP2Mac.ps1"
+# Rember to update the PATH
+Get-ChildItem -Path $RootPath -Recurse -File -Filter "*.psm1" |
+    ForEach-Object { Import-Module -Name $_.FullName -Force }
 
 
 # Import master config
 # ------------------------------------------------------------
-if (-NOT (Test-Path -Path "$JSONRoot\MasterServerConfig.json")) {
-
-    Add-Type -AssemblyName System.Windows.Forms
-
-    $FileDialog = New-Object System.Windows.Forms.OpenFileDialog
-    $FileDialog.InitialDirectory = $RootPath
-    $FileDialog.Filter = "JSON files (*.json)|*.json"
-    $FileDialog.Title  = "Select file"
-
-    if ($FileDialog.ShowDialog() -eq "OK") {
-        $MasterConfig = Get-Content -Path $FileDialog.FileName | ConvertFrom-Json
-    }
-    else {
-        Throw "No file selected"
-    }
-} else {
-    $MasterConfig  = Get-Content "$JSONRoot\MasterServerConfig.json" | ConvertFrom-Json
-}
+$MasterConfigFile = Get-ChildItem -Path $RootPath -Recurse -File -Filter "MasterServerConfig.json"
+$MasterConfig = Get-Content -Path $MasterConfigFile.FullName | ConvertFrom-Json
 
 
-# ..
+# Get New Domain Information
 # ------------------------------------------------------------
 $NewDomainName   = Read-Host -Prompt "Active Directory Doamin Name (test.domain.tld)"
 $NewDomainSubNet = Read-Host -Prompt "IP Subnet (10.10.10.0/24)"
@@ -105,23 +87,16 @@ Foreach ($Server in $SelectedServers.Name) {
     }
 }
 
-
-Function Prompt-YesNo {
-	Param (
-        [Parameter(Mandatory=$true)][String]$Title,
-		[Parameter(Mandatory=$true)][String]$Message,
-		[Parameter(Mandatory=$false)][Int]$DefaultOption = 0
-    )
-	
-	$No = New-Object System.Management.Automation.Host.ChoiceDescription '&No', 'No'
-	$Yes = New-Object System.Management.Automation.Host.ChoiceDescription '&Yes', 'Yes'
-	$Options = [System.Management.Automation.Host.ChoiceDescription[]]($No, $Yes)
-	
-	return $host.ui.PromptForChoice($Title, $Message, $Options, $DefaultOption)
-}
-
+<#
+# Create selected servers
+# Change to Universal CreateVM script
+# ------------------------------------------------------------
 switch(Prompt-YesNo -Title "Create Servers" -Message "Execute the Create-PVEServers script ?")
 {
 	0 { }
-	1 { & "$RootPath\Tools\Create-PVEVMs.ps1" }
+	1 { 
+        $CreateVM = Get-ChildItem -Path $RootPath -Recurse -File -Filter "Create-PVEVMs.ps1"
+        & $CreateVM.FullName
+      }
 }
+#>
